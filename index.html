@@ -13,7 +13,7 @@
     <form id="webToLeadForm" 
           action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" 
           method="POST" 
-          onsubmit="return showThankYou();">
+          onsubmit="return validateForm();">
 
       <input type="hidden" name="oid" value="00DWU00000F8NTb">
       <input type="hidden" name="retURL" value="">
@@ -22,11 +22,20 @@
       <label>First Name</label>
       <input name="first_name" type="text" maxlength="40">
 
-      <label>Last Name</label>
-      <input name="last_name" type="text" maxlength="80">
+      <label>Last Name <span class="required">*</span></label>
+      <input name="last_name" type="text" maxlength="80" required>
 
-      <label>Company</label>
-      <input name="company" type="text" maxlength="40">
+      <label>Company <span class="required">*</span></label>
+      <input name="company" type="text" maxlength="40" required>
+
+      <label>Lead Status <span class="required">*</span></label>
+      <select name="status" required>
+        <option value="">-- Select Status --</option>
+        <option value="New">New</option>
+        <option value="Working">Working</option>
+        <option value="Qualified">Qualified</option>
+        <option value="Unqualified">Unqualified</option>
+      </select>
 
       <label>Email</label>
       <input name="email" type="email" maxlength="80">
