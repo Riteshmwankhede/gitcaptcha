@@ -2,23 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Web-to-Lead Form</title>
+  <title>Web to Lead Form</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
+  <div class="container">
+    <h2>Salesforce Lead Form</h2>
 
-  <div class="form-container" id="formDiv">
-    <h2>Contact Us</h2>
-    <form id="webToLeadForm" 
-          action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" 
-          method="POST" 
-          onsubmit="return validateForm();">
+    <form id="leadForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" onsubmit="return handleSubmit(event)">
 
-      <input type="hidden" name="oid" value="00DWU00000F8NTb">
+      <!-- Hidden Fields -->
+      <input type="hidden" name="oid" value="00DWU00000F8NTb"> <!-- Replace with your org ID -->
       <input type="hidden" name="retURL" value="">
-      <input type="hidden" name="captcha_settings" value='{"keyname":"github","fallback":"true","orgId":"00DWU00000F8NTb","ts":""}'>
 
+      <!-- Basic Info -->
       <label>First Name</label>
       <input name="first_name" type="text" maxlength="40">
 
@@ -30,7 +28,7 @@
 
       <label>Lead Status <span class="required">*</span></label>
       <select name="status" required>
-        <option value="">-- Select Status --</option>
+        <option value="">--Select Status--</option>
         <option value="New">New</option>
         <option value="Working">Working</option>
         <option value="Qualified">Qualified</option>
@@ -40,28 +38,37 @@
       <label>Email</label>
       <input name="email" type="email" maxlength="80">
 
-      <label>Product Interest</label>
-      <input name="00NXXXXXXXXXXXXXXX" type="text">
+      <label>Mobile</label>
+      <input name="mobile" type="text" maxlength="40">
 
-      <label>Number of Locations</label>
-      <input name="00NYYYYYYYYYYYYYYY" type="number">
+      <!-- Address Info -->
+      <label>Street</label>
+      <input name="street" type="text" maxlength="255">
 
-      <label>Description</label>
-      <textarea name="description" rows="3"></textarea>
+      <label>City</label>
+      <input name="city" type="text" maxlength="40">
 
+      <label>State</label>
+      <input name="state" type="text" maxlength="20">
+
+      <label>Zip</label>
+      <input name="zip" type="text" maxlength="20">
+
+      <label>Country</label>
+      <input name="country" type="text" maxlength="40">
+
+      <!-- CAPTCHA -->
       <div class="g-recaptcha" data-sitekey="6LeljRwrAAAAACSczSzlPCfjOh72U0bqSsB-6lRF"></div>
 
-      <button type="submit" class="submit-btn">Submit</button>
+      <!-- Submit -->
+      <button type="submit">Submit</button>
     </form>
-  </div>
 
-  <div class="thank-you" id="thankYouDiv">
-    <input type="hidden" name="retURL" value="https://yourdomain.com/thankyou.html">
-
-    🎉 Thank you! Your submission was received. We'll be in touch soon.
+    <div id="thankYouMsg" class="hidden">
+      <h3>Thank you! Your lead has been submitted.</h3>
+    </div>
   </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
