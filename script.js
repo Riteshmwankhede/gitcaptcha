@@ -1,27 +1,19 @@
-function timestamp() {
-  const response = document.getElementById("g-recaptcha-response");
-  if (!response || response.value.trim() === "") {
-    const settings = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
-    settings["ts"] = JSON.stringify(new Date().getTime());
-    document.getElementsByName("captcha_settings")[0].value = JSON.stringify(settings);
-  }
-}
-setInterval(timestamp, 500);
+function handleSubmit(event) {
+  const form = document.getElementById('leadForm');
+  const thankYou = document.getElementById('thankYouMsg');
 
-function validateForm() {
-  const lastName = document.querySelector("input[name='last_name']").value.trim();
-  const company = document.querySelector("input[name='company']").value.trim();
-  const status = document.querySelector("select[name='status']").value;
-
-  if (!lastName || !company || !status) {
-    alert("Please fill in all required fields: Last Name, Company, and Lead Status.");
+  // Optionally validate captcha
+  const response = grecaptcha.getResponse();
+  if (response.length === 0) {
+    alert("Please complete the CAPTCHA.");
     return false;
   }
 
+  // Delay redirect and show thank you
   setTimeout(() => {
-    document.getElementById('formDiv').style.display = 'none';
-    document.getElementById('thankYouDiv').style.display = 'block';
+    form.classList.add("hidden");
+    thankYou.classList.remove("hidden");
   }, 500);
 
-  return true;
+  return true; // allow form to submit
 }
