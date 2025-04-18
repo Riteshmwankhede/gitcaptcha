@@ -1,61 +1,139 @@
-<html>
-<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
-    function timestamp() {
-        var response = document.getElementById("g-recaptcha-response");
-        if (response == null || response.value.trim() == "") {
-            var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
-            elems["ts"] = JSON.stringify(new Date().getTime());
-            document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web-to-Lead Form</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
         }
-    }
-    setInterval(timestamp, 500);
-</script>
 
-<form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DWU00000F8NTb"
-    method="POST">
+        .form-container {
+            background: white;
+            padding: 30px;
+            max-width: 700px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
 
-    <input type="hidden" name="captcha_settings"
-        value='{"keyname":"github","fallback":"true","orgId":"00DWU00000F8NTb","ts":""}'>
-    <input type="hidden" name="oid" value="00DWU00000F8NTb">
-    <input type="hidden" name="retURL" value="http://google.com">
+        h2 {
+            text-align: center;
+            color: #2a2a2a;
+        }
 
-    <!-- Lead Information -->
-    <h3>Lead Information</h3>
-    <label>First Name</label><input name="first_name" type="text" maxlength="40"><br>
-    <label>Last Name</label><input name="last_name" type="text" maxlength="80"><br>
-    <label>Company</label><input name="company" type="text" maxlength="40"><br>
-    <label>Lead Status</label>
-    <select name="status">
-        <option value="New">New</option>
-        <option value="Working">Working</option>
-        <option value="Qualified">Qualified</option>
-        <option value="Unqualified">Unqualified</option>
-    </select><br>
-    <label>Mobile</label><input name="mobile" type="text" maxlength="40"><br>
-    <label>Email</label><input name="email" type="email" maxlength="80"><br>
+        .section {
+            margin-bottom: 25px;
+        }
 
-    <!-- Address Information -->
-    <h3>Address Information</h3>
-    <label>Street</label><input name="street" type="text" maxlength="255"><br>
-    <label>City</label><input name="city" type="text" maxlength="40"><br>
-    <label>State</label><input name="state" type="text" maxlength="20"><br>
-    <label>Zip Code</label><input name="zip" type="text" maxlength="20"><br>
-    <label>Country</label><input name="country" type="text" maxlength="40"><br>
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #333;
+        }
 
-    <!-- Additional Information -->
-    <h3>Additional Information</h3>
-    <label>Product Interest</label><input name="00NXXXXXXXXXXXXXXX" type="text"><br>
-    <label>Number of Locations</label><input name="00NYYYYYYYYYYYYYYY" type="number"><br>
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
 
-    <!-- Description -->
-    <h3>Description</h3>
-    <label>Description</label><textarea name="description" rows="4" cols="50"></textarea><br>
+        textarea {
+            resize: vertical;
+        }
 
-    <!-- CAPTCHA -->
-    <div class="g-recaptcha" data-sitekey="6LeljRwrAAAAACSczSzlPCfjOh72U0bqSsB-6lRF"></div><br>
-    <input type="submit" name="submit">
-</form>
+        .g-recaptcha {
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            margin-top: 30px;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+    <script>
+        function timestamp() {
+            var response = document.getElementById("g-recaptcha-response");
+            if (response == null || response.value.trim() == "") {
+                var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
+                elems["ts"] = JSON.stringify(new Date().getTime());
+                document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+            }
+        }
+        setInterval(timestamp, 500);
+    </script>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Contact Us</h2>
+        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DWU00000F8NTb" method="POST">
+
+            <input type="hidden" name="captcha_settings"
+                value='{"keyname":"github","fallback":"true","orgId":"00DWU00000F8NTb","ts":""}'>
+            <input type="hidden" name="oid" value="00DWU00000F8NTb">
+            <input type="hidden" name="retURL" value="https://yourwebsite.com/thank-you">
+
+            <!-- Lead Info -->
+            <div class="section">
+                <label>First Name</label><input name="first_name" type="text" maxlength="40">
+                <label>Last Name</label><input name="last_name" type="text" maxlength="80">
+                <label>Company</label><input name="company" type="text" maxlength="40">
+                <label>Lead Status</label>
+                <select name="status">
+                    <option value="New">New</option>
+                    <option value="Working">Working</option>
+                    <option value="Qualified">Qualified</option>
+                    <option value="Unqualified">Unqualified</option>
+                </select>
+                <label>Mobile</label><input name="mobile" type="text" maxlength="40">
+                <label>Email</label><input name="email" type="email" maxlength="80">
+            </div>
+
+            <!-- Address -->
+            <div class="section">
+                <label>Street</label><input name="street" type="text" maxlength="255">
+                <label>City</label><input name="city" type="text" maxlength="40">
+                <label>State</label><input name="state" type="text" maxlength="20">
+                <label>Zip</label><input name="zip" type="text" maxlength="20">
+                <label>Country</label><input name="country" type="text" maxlength="40">
+            </div>
+
+            <!-- Additional Info -->
+            <div class="section">
+                <label>Product Interest</label><input name="00NXXXXXXXXXXXXXXX" type="text">
+                <label>Number of Locations</label><input name="00NYYYYYYYYYYYYYYY" type="number">
+                <label>Description</label><textarea name="description" rows="4" cols="50"></textarea>
+            </div>
+
+            <!-- CAPTCHA -->
+            <div class="g-recaptcha" data-sitekey="6LeljRwrAAAAACSczSzlPCfjOh72U0bqSsB-6lRF"></div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+</body>
 </html>
-
