@@ -1,37 +1,61 @@
 <html>
 <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
-
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script>
- function timestamp() { var response = document.getElementById("g-recaptcha-response"); if (response == null || response.value.trim() == "") {var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); } } setInterval(timestamp, 500); 
+    function timestamp() {
+        var response = document.getElementById("g-recaptcha-response");
+        if (response == null || response.value.trim() == "") {
+            var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
+            elems["ts"] = JSON.stringify(new Date().getTime());
+            document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+        }
+    }
+    setInterval(timestamp, 500);
 </script>
 
-<!--  ----------------------------------------------------------------------  -->
-<!--  NOTE: Please add the following <FORM> element to your page.             -->
-<!--  ----------------------------------------------------------------------  -->
+<form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DWU00000F8NTb"
+    method="POST">
 
-<form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DWU00000F8NTb" method="POST">
+    <input type="hidden" name="captcha_settings"
+        value='{"keyname":"github","fallback":"true","orgId":"00DWU00000F8NTb","ts":""}'>
+    <input type="hidden" name="oid" value="00DWU00000F8NTb">
+    <input type="hidden" name="retURL" value="http://google.com">
 
-<input type=hidden name='captcha_settings' value='{"keyname":"github","fallback":"true","orgId":"00DWU00000F8NTb","ts":""}'>
-<input type=hidden name="oid" value="00DWU00000F8NTb">
-<input type=hidden name="retURL" value="http://google.com">
+    <!-- Lead Information -->
+    <h3>Lead Information</h3>
+    <label>First Name</label><input name="first_name" type="text" maxlength="40"><br>
+    <label>Last Name</label><input name="last_name" type="text" maxlength="80"><br>
+    <label>Company</label><input name="company" type="text" maxlength="40"><br>
+    <label>Lead Status</label>
+    <select name="status">
+        <option value="New">New</option>
+        <option value="Working">Working</option>
+        <option value="Qualified">Qualified</option>
+        <option value="Unqualified">Unqualified</option>
+    </select><br>
+    <label>Mobile</label><input name="mobile" type="text" maxlength="40"><br>
+    <label>Email</label><input name="email" type="email" maxlength="80"><br>
 
-<!--  ----------------------------------------------------------------------  -->
-<!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
-<!--  these lines if you wish to test in debug mode.                          -->
-<!--  <input type="hidden" name="debug" value=1>                              -->
-<!--  <input type="hidden" name="debugEmail"                                  -->
-<!--  value="ritesh.wankhede19@vit.edu">                                      -->
-<!--  ----------------------------------------------------------------------  -->
+    <!-- Address Information -->
+    <h3>Address Information</h3>
+    <label>Street</label><input name="street" type="text" maxlength="255"><br>
+    <label>City</label><input name="city" type="text" maxlength="40"><br>
+    <label>State</label><input name="state" type="text" maxlength="20"><br>
+    <label>Zip Code</label><input name="zip" type="text" maxlength="20"><br>
+    <label>Country</label><input name="country" type="text" maxlength="40"><br>
 
-<label for="first_name">First Name</label><input  id="first_name" maxlength="40" name="first_name" size="20" type="text" /><br>
+    <!-- Additional Information -->
+    <h3>Additional Information</h3>
+    <label>Product Interest</label><input name="00NXXXXXXXXXXXXXXX" type="text"><br>
+    <label>Number of Locations</label><input name="00NYYYYYYYYYYYYYYY" type="number"><br>
 
-<label for="last_name">Last Name</label><input  id="last_name" maxlength="80" name="last_name" size="20" type="text" /><br>
+    <!-- Description -->
+    <h3>Description</h3>
+    <label>Description</label><textarea name="description" rows="4" cols="50"></textarea><br>
 
-<label for="email">Email</label><input  id="email" maxlength="80" name="email" size="20" type="text" /><br>
-
-<div class="g-recaptcha" data-sitekey="6LeljRwrAAAAACSczSzlPCfjOh72U0bqSsB-6lRF"></div><br>
-<input type="submit" name="submit">
-
+    <!-- CAPTCHA -->
+    <div class="g-recaptcha" data-sitekey="6LeljRwrAAAAACSczSzlPCfjOh72U0bqSsB-6lRF"></div><br>
+    <input type="submit" name="submit">
 </form>
 </html>
+
