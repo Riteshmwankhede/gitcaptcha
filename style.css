@@ -30,6 +30,11 @@ input, select, textarea {
   border: 1px solid #ccc;
 }
 
+.required {
+  color: red;
+  font-weight: bold;
+}
+
 .g-recaptcha {
   margin-top: 20px;
 }
